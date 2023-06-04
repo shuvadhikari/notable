@@ -1,0 +1,663 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Boards{% endblock %}
+
+{% block content %}
+
+    <!--begin::Header Mobile-->
+    <div id="kt_header_mobile" class="header-mobile">
+        <!--begin::Toolbar-->
+        <div class="d-flex align-items-center">
+            <button class="btn p-0 burger-icon burger-icon-left ml-4" id="kt_header_mobile_toggle">
+                <span></span>
+            </button>
+            <button class="btn btn-icon btn-hover-transparent-white p-0 ml-3" id="kt_header_mobile_topbar_toggle">
+					<span class="svg-icon svg-icon-xl">
+						<!--begin::Svg Icon | path:/media/svg/icons/General/User.svg-->
+						<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px"
+                             height="24px" viewBox="0 0 24 24" version="1.1">
+							<g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+								<polygon points="0 0 24 0 24 24 0 24"/>
+								<path d="M12,11 C9.790861,11 8,9.209139 8,7 C8,4.790861 9.790861,3 12,3 C14.209139,3 16,4.790861 16,7 C16,9.209139 14.209139,11 12,11 Z"
+                                      fill="#000000" fill-rule="nonzero" opacity="0.3"/>
+								<path d="M3.00065168,20.1992055 C3.38825852,15.4265159 7.26191235,13 11.9833413,13 C16.7712164,13 20.7048837,15.2931929 20.9979143,20.2 C21.0095879,20.3954741 20.9979143,21 20.2466999,21 C16.541124,21 11.0347247,21 3.72750223,21 C3.47671215,21 2.97953825,20.45918 3.00065168,20.1992055 Z"
+                                      fill="#000000" fill-rule="nonzero"/>
+							</g>
+						</svg>
+                        <!--end::Svg Icon-->
+					</span>
+            </button>
+        </div>
+        <!--end::Toolbar-->
+    </div>
+    <!--end::Header Mobile-->
+
+    <div class="d-flex flex-column flex-root">
+        <!--begin::Page-->
+        <div class="d-flex flex-row flex-column-fluid page">
+            <!--begin::Wrapper-->
+            <div class="d-flex flex-column flex-row-fluid wrapper" id="kt_wrapper">
+                <!--begin::Header-->
+                <div id="kt_header" class="header header-fixed">
+                    <!--begin::Container-->
+                    <div class="container d-flex align-items-stretch justify-content-between">
+                        <!--begin::Topbar-->
+                        <div class="topbar">
+                            <!--begin::User-->
+                            <div class="dropdown">
+                                <!--begin::Toggle-->
+                                <div class="topbar-item">
+                                    <div class="btn btn-icon btn-hover-transparent-white d-flex align-items-center btn-lg px-md-2 w-md-auto"
+                                         id="kt_quick_user_toggle">
+                                        <span class="text-white opacity-70 font-weight-bold font-size-base d-none d-md-inline mr-1">Hi,</span>
+                                        <span class="text-white opacity-90 font-weight-bolder font-size-base d-none d-md-inline mr-4">{{ user.username }}</span>
+                                        <span class="symbol symbol-35">
+												<span class="symbol-label text-white font-size-h5 font-weight-bold bg-white-o-30">{{ first }}</span>
+											</span>
+                                    </div>
+                                </div>
+                                <!--end::Toggle-->
+                            </div>
+                            <!--end::User-->
+                        </div>
+                        <!--end::Topbar-->
+                    </div>
+                    <!--end::Container-->
+                </div>
+                <!--end::Header-->
+
+                {% block body %}
+
+                    <!--begin::Content-->
+                    <div class="content d-flex flex-column flex-column-fluid" id="kt_content">
+                        <!--begin::Subheader-->
+                        <div class="subheader py-2 py-lg-12 subheader-transparent" id="kt_subheader">
+                            <div class="container d-flex align-items-center justify-content-between flex-wrap flex-sm-nowrap">
+                                <!--begin::Info-->
+                                <div class="d-flex align-items-center flex-wrap mr-1">
+                                    <!--begin::Heading-->
+                                    <div class="d-flex flex-column">
+                                        <!--begin::Title-->
+                                        <h2 class="text-white font-weight-bold my-2 mr-5">Projects</h2>
+                                        <h5 class="text-success font-weight-bold">Create your Boards, Teams or Projects
+                                            Here</h5>
+                                        <!--end::Title-->
+                                    </div>
+                                    <!--end::Heading-->
+                                </div>
+                                <!--end::Info-->
+                                <!--begin::Toolbar-->
+                                <div class="d-flex align-items-center">
+                                    <!--begin::Button-->
+                                    <a href="/report"
+                                       class="btn btn-transparent-white font-weight-bold py-3 px-6 mr-2">Reports</a>
+                                    <!--end::Button-->
+                                    <!--begin::Dropdown-->
+                                    <div class="dropdown dropdown-inline ml-2" data-toggle="tooltip"
+                                         title="Add New Team"
+                                         data-placement="top">
+
+                                        <!-- Button  modal-->
+                                        <button type="button" class="btn btn-white font-weight-bold py-3 px-6"
+                                                data-toggle="modal"
+                                                data-target="#addTeamModal">
+                                            Add Team
+                                        </button>
+
+                                        <!-- Modal-->
+                                        <div class="modal fade" id="addTeamModal" tabindex="-1" role="dialog"
+                                             aria-labelledby="exampleModalLabel" aria-hidden="true">
+
+                                            <div class="modal-dialog" role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="addTeamLabel">New Team
+                                                        </h5>
+                                                        <button type="button" class="close" data-dismiss="modal"
+                                                                aria-label="Close">
+                                                            <i aria-hidden="true" class="ki ki-close"></i>
+                                                        </button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <form id="add_team_form" method="post">{% csrf_token %}
+                                                            <input name="type" type="hidden" value="team"/>
+                                                            <div class="form-group">
+                                                                <label>Name
+                                                                    <span class="text-danger">*</span></label>
+                                                                <input name="name" type="text"
+                                                                       class="form-control form-control-lg"
+                                                                       placeholder="Team Name">
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label>Description
+                                                                    <span class="text-danger">*</span></label>
+                                                                <input name="desc" type="text"
+                                                                       class="form-control form-control-lg"
+                                                                       placeholder="Description">
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label>Select Users
+                                                                    <span class="text-danger">*</span></label><br>
+                                                                <select name="members" style="width: 100%"
+                                                                        class="form-control form-control-lg select2"
+                                                                        id="kt_select2_4" multiple="multiple">
+                                                                    {% for ou in other_users %}
+                                                                        <option value="{{ ou.id }}">{{ ou.username }}</option>
+                                                                    {% endfor %}
+                                                                </select>
+                                                            </div>
+
+                                                            <div class="form-group">
+                                                                <button type="button"
+                                                                        class="btn btn-light-primary font-weight-bold"
+                                                                        data-dismiss="modal">Close
+                                                                </button>
+                                                                <button type="submit" class="btn btn-primary font-weight-bold">
+                                                                    Ok
+                                                                </button>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="dropdown dropdown-inline ml-2" data-toggle="tooltip"
+                                         title="Add New Project"
+                                         data-placement="top">
+
+                                        <!-- Button  modal-->
+                                        <button type="button" class="btn btn-white font-weight-bold py-3 px-6"
+                                                data-toggle="modal"
+                                                data-target="#exampleModal">
+                                            New
+                                        </button>
+
+                                        <!-- Modal-->
+                                        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
+                                             aria-labelledby="exampleModalLabel" aria-hidden="true">
+
+                                            <div class="modal-dialog" role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="exampleModalLabel">New Project
+                                                        </h5>
+                                                        <button type="button" class="close" data-dismiss="modal"
+                                                                aria-label="Close">
+                                                            <i aria-hidden="true" class="ki ki-close"></i>
+                                                        </button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <form id="add_board_from" method="post">{% csrf_token %}
+                                                            <input name="type" type="hidden" value="project"/>
+                                                            <div class="form-group">
+                                                                <label>Name
+                                                                    <span class="text-danger">*</span></label>
+                                                                <input id="iname" name="name" type="text"
+                                                                       class="form-control form-control-lg"
+                                                                       placeholder="My Project">
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label>Description
+                                                                    <span class="text-danger">*</span></label>
+                                                                <input id="idesc" name="desc" type="text"
+                                                                       class="form-control form-control-lg"
+                                                                       placeholder="Description">
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="idetails">Details
+                                                                    <span class="text-danger">*</span></label>
+                                                                <textarea name="details" class="form-control"
+                                                                          id="idetails"
+                                                                          rows="3"
+                                                                          placeholder="Say More ..."></textarea>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label>Select Team or Users
+                                                                    <span class="text-danger">*</span></label><br>
+                                                                <select name="users" style="width: 100%"
+                                                                        class="form-control form-control-lg select2"
+                                                                        id="kt_select2_3"
+                                                                        name="param" multiple="multiple">
+                                                                    {% for ou in other_users %}
+                                                                        <option value="{{ ou.id }}-user">{{ ou.username }} - user</option>
+                                                                    {% endfor %}
+                                                                    {% for team in teams %}
+                                                                        <option value="{{ team.id }}-team">{{ team.name }} - team</option>
+                                                                    {% endfor %}
+                                                                </select>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <button type="button"
+                                                                        class="btn btn-light-primary font-weight-bold"
+                                                                        data-dismiss="modal">Close
+                                                                </button>
+                                                                <button id="psubmit" type="submit"
+                                                                        class="btn btn-primary font-weight-bold">Save
+                                                                    changes
+                                                                </button>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <!--end::Dropdown-->
+                                </div>
+                                <!--end::Toolbar-->
+                            </div>
+                        </div>
+                        <!--end::Subheader-->
+                        <!--begin::Entry-->
+                        <div class="d-flex flex-column-fluid">
+                            <!--begin::Container-->
+                            <div class="container">
+                                {% for proj in projects %}
+                                    {% if forloop.first %}
+                                        <div class="row">{% endif %}
+
+                                <div class="col-xl-4">
+                                    <!--begin::Card-->
+                                    <div class="card card-custom gutter-b card-stretch">
+                                        <!--begin::Body-->
+                                        <div class="card-body">
+                                            <!--begin::Info-->
+                                            <div class="d-flex align-items-center">
+                                                <!--begin::Pic-->
+                                                <div class="flex-shrink-0 mr-4 symbol symbol-60 symbol-circle">
+                                                    <img src="{% static proj.project.profile_photo %}"
+                                                         alt="image"/>
+                                                </div>
+                                                <!--end::Pic-->
+                                                <!--begin::Info-->
+                                                <div class="d-flex flex-column mr-auto">
+                                                    <!--begin: Title-->
+                                                    <div class="d-flex flex-column mr-auto">
+                                                        <a href="/boards/{{ proj.project.id }}"
+                                                           class="text-dark text-hover-primary font-size-h4 font-weight-bolder mb-1">{{ proj.project.name }}</a>
+                                                        <span class="text-muted font-weight-bold">{{ proj.project.description }}</span>
+                                                    </div>
+                                                    <!--end::Title-->
+                                                </div>
+                                                <!--end::Info-->
+                                                <!--begin::Toolbar-->
+                                                <div class="card-toolbar mb-7">
+                                                    <div class="dropdown dropdown-inline" data-toggle="tooltip"
+                                                         title="Quick actions" data-placement="left">
+                                                        <a href="#"
+                                                           class="btn btn-clean btn-hover-light-primary btn-sm btn-icon"
+                                                           data-toggle="dropdown" aria-haspopup="true"
+                                                           aria-expanded="false">
+                                                            <i class="ki ki-bold-more-hor"></i>
+                                                        </a>
+                                                        <div class="dropdown-menu dropdown-menu-sm dropdown-menu-right">
+                                                            <!--begin::Navigation-->
+                                                            <ul class="navi navi-hover">
+                                                                <li class="navi-item">
+                                                                    <a href="javascript:void(0)"
+                                                                       id="{{ proj.project.id }}/delete"
+                                                                       class="navi-link aff">
+																			<span class="navi-icon">
+																				<i class="flaticon2-delete"></i>
+																			</span>
+                                                                        <span class="navi-text">Remove</span>
+                                                                    </a>
+                                                                </li>
+                                                            </ul>
+                                                            <!--end::Navigation-->
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!--end::Toolbar-->
+                                            </div>
+                                            <!--end::Info-->
+                                            <!--begin::Description-->
+                                            <div class="mb-10 mt-5 font-weight-bold">{{ proj.project.details }}</div>
+                                            <!--end::Description-->
+                                            <!--begin::Progress-->
+                                            <div class="d-flex mb-5 align-items-cente">
+                                                <span class="d-block font-weight-bold mr-5">Progress</span>
+                                                <div class="d-flex flex-row-fluid align-items-center">
+                                                    <div class="progress progress-xs mt-2 mb-2 w-100">
+                                                        <div class="progress-bar bg-success" role="progressbar"
+                                                             style="width: {{ proj.progress }}%;" aria-valuenow="50"
+                                                             aria-valuemin="0"
+                                                             aria-valuemax="100"></div>
+                                                    </div>
+                                                    <span class="ml-3 font-weight-bolder">{{ proj.progress }}%</span>
+                                                </div>
+                                            </div>
+                                            <!--ebd::Progress-->
+                                            <div class="d-flex flex-column flex-lg-fill float-left mb-7">
+                                                <span class="font-weight-bolder mb-4">Members</span>
+                                                <div class="symbol-group symbol-hover">
+                                                    {% for user in proj.users %}
+                                                        <div class="symbol symbol-30 symbol-circle"
+                                                             data-toggle="tooltip"
+                                                             title="" data-original-title="{{ user.username }}">
+                                                            <img alt="Pic"
+                                                                 src="{% static user.profile.profile_photo %}">
+                                                        </div>
+                                                    {% endfor %}
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        <!--end::Body-->
+                                        <!--begin::Footer-->
+                                        <div class="card-footer d-flex align-items-center">
+                                            <div class="d-flex">
+                                                <div class="d-flex align-items-center mr-7">
+														<span class="svg-icon svg-icon-gray-500">
+															<!--begin::Svg Icon | path:/media/svg/icons/Text/Bullet-list.svg-->
+															<svg xmlns="http://www.w3.org/2000/svg"
+                                                                 xmlns:xlink="http://www.w3.org/1999/xlink" width="24px"
+                                                                 height="24px" viewBox="0 0 24 24" version="1.1">
+																<g stroke="none" stroke-width="1" fill="none"
+                                                                   fill-rule="evenodd">
+																	<rect x="0" y="0" width="24" height="24"/>
+																	<path d="M10.5,5 L19.5,5 C20.3284271,5 21,5.67157288 21,6.5 C21,7.32842712 20.3284271,8 19.5,8 L10.5,8 C9.67157288,8 9,7.32842712 9,6.5 C9,5.67157288 9.67157288,5 10.5,5 Z M10.5,10 L19.5,10 C20.3284271,10 21,10.6715729 21,11.5 C21,12.3284271 20.3284271,13 19.5,13 L10.5,13 C9.67157288,13 9,12.3284271 9,11.5 C9,10.6715729 9.67157288,10 10.5,10 Z M10.5,15 L19.5,15 C20.3284271,15 21,15.6715729 21,16.5 C21,17.3284271 20.3284271,18 19.5,18 L10.5,18 C9.67157288,18 9,17.3284271 9,16.5 C9,15.6715729 9.67157288,15 10.5,15 Z"
+                                                                          fill="#000000"/>
+																	<path d="M5.5,8 C4.67157288,8 4,7.32842712 4,6.5 C4,5.67157288 4.67157288,5 5.5,5 C6.32842712,5 7,5.67157288 7,6.5 C7,7.32842712 6.32842712,8 5.5,8 Z M5.5,13 C4.67157288,13 4,12.3284271 4,11.5 C4,10.6715729 4.67157288,10 5.5,10 C6.32842712,10 7,10.6715729 7,11.5 C7,12.3284271 6.32842712,13 5.5,13 Z M5.5,18 C4.67157288,18 4,17.3284271 4,16.5 C4,15.6715729 4.67157288,15 5.5,15 C6.32842712,15 7,15.6715729 7,16.5 C7,17.3284271 6.32842712,18 5.5,18 Z"
+                                                                          fill="#000000" opacity="0.3"/>
+																</g>
+															</svg>
+                                                            <!--end::Svg Icon-->
+														</span>
+                                                    <a href="/boards/{{ proj.project.id }}"
+                                                       class="font-weight-bolder text-primary ml-2">
+                                                        {{ proj.tasks }} Tasks</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!--end::Footer-->
+                                    </div>
+                                    <!--end:: Card-->
+                                </div>
+
+                                {% if forloop.counter|divisibleby:3 %}</div>
+                                    <div class="row">{% endif %}
+                                {% if forloop.last %}</div>{% endif %}
+                                {% endfor %}
+
+                                <!--begin::Pagination-->
+                                <div class="d-flex justify-content-between align-items-center flex-wrap">
+                                    {% for proj in projects %}
+                                        {% if forloop.first %}
+                                            <div class="d-flex flex-wrap mr-3">
+                                                <a href="#" class="btn btn-icon btn-sm btn-light-primary mr-2 my-1">
+                                                    <i class="ki ki-bold-double-arrow-back icon-xs"></i>
+                                                </a>
+                                                <a href="#" class="btn btn-icon btn-sm btn-light-primary mr-2 my-1">
+                                                    <i class="ki ki-bold-arrow-back icon-xs"></i>
+                                                </a>
+                                                <a href="#"
+                                                   class="btn btn-icon btn-sm border-0 btn-hover-primary mr-2 my-1">1</a>
+                                                <a href="#" class="btn btn-icon btn-sm btn-light-primary mr-2 my-1">
+                                                    <i class="ki ki-bold-arrow-next icon-xs"></i>
+                                                </a>
+                                                <a href="#" class="btn btn-icon btn-sm btn-light-primary mr-2 my-1">
+                                                    <i class="ki ki-bold-double-arrow-next icon-xs"></i>
+                                                </a>
+                                            </div>
+                                            <div class="d-flex align-items-center">
+                                                <select class="form-control form-control-sm text-primary font-weight-bold mr-4 border-0 bg-light-primary"
+                                                        style="width: 75px;">
+                                                    <option value="10">10</option>
+                                                    <option value="20">20</option>
+                                                    <option value="30">30</option>
+                                                    <option value="50">50</option>
+                                                    <option value="100">100</option>
+                                                </select>
+                                                <span class="text-muted">Per Page</span>
+                                            </div>
+                                        {% endif %}
+                                    {% endfor %}
+                                </div>
+                                <!--end::Pagination-->
+                            </div>
+                            <!--end::Container-->
+                        </div>
+                        <!--end::Entry-->
+                    </div>
+                    <!--end::Content-->
+
+                {% endblock %}
+                <!--begin::Footer-->
+                <div class="footer bg-white py-4 d-flex flex-lg-column" id="kt_footer">
+                    <!--begin::Container-->
+                    <div class="container d-flex flex-column flex-md-row align-items-center justify-content-between">
+                        <!--begin::Copyright-->
+                        <div class="text-dark order-2 order-md-1">
+                            <span class="text-muted font-weight-bold mr-2">2023©</span>
+                            <span class="text-dark-75 text-hover-primary">Final Year Project</span>
+                        </div>
+                        <!--end::Copyright-->
+                        <!--begin::Nav-->
+                        <div class="nav nav-dark order-1 order-md-2">
+                            <span class="nav-link pr-3 pl-0">About</span>
+                            <span class="nav-link px-3">Team</span>
+                            <span class="nav-link pl-3 pr-0">Contact</span>
+                        </div>
+                        <!--end::Nav-->
+                    </div>
+                    <!--end::Container-->
+                </div>
+                <!--end::Footer-->
+            </div>
+            <!--end::Wrapper-->
+        </div>
+        <!--end::Page-->
+    </div>
+
+    <!-- begin::User Panel-->
+    <div id="kt_quick_user" class="offcanvas offcanvas-right p-10">
+        <!--begin::Header-->
+        <div class="offcanvas-header d-flex align-items-center justify-content-between pb-5">
+            <h3 class="font-weight-bold m-0">User Profile
+                <small class="text-muted font-size-sm ml-2"></small></h3>
+            <a href="#" class="btn btn-xs btn-icon btn-light btn-hover-primary" id="kt_quick_user_close">
+                <i class="ki ki-close icon-xs text-muted"></i>
+            </a>
+        </div>
+        <!--end::Header-->
+        <!--begin::Content-->
+        <div class="offcanvas-content pr-5 mr-n5">
+            <!--begin::Header-->
+            <div class="d-flex align-items-center mt-5">
+                <div class="symbol symbol-100 mr-5">
+                    <div class="symbol-label"
+                         style="background-image:url({% static user.profile.profile_photo %})"></div>
+                    <i class="symbol-badge bg-success"></i>
+                </div>
+                <div class="d-flex flex-column">
+                    <a href="#"
+                       class="font-weight-bold font-size-h5 text-dark-75 text-hover-primary">{{ user.username }}</a>
+                    <div class="navi mt-2">
+                        <a href="#" class="navi-item">
+								<span class="navi-link p-0 pb-2">
+									<span class="navi-icon mr-1">
+										<span class="svg-icon svg-icon-lg svg-icon-primary">
+											<!--begin::Svg Icon | path:/media/svg/icons/Communication/Mail-notification.svg-->
+											<svg xmlns="http://www.w3.org/2000/svg"
+                                                 xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px"
+                                                 viewBox="0 0 24 24" version="1.1">
+												<g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+													<rect x="0" y="0" width="24" height="24"/>
+													<path d="M21,12.0829584 C20.6747915,12.0283988 20.3407122,12 20,12 C16.6862915,12 14,14.6862915 14,18 C14,18.3407122 14.0283988,18.6747915 14.0829584,19 L5,19 C3.8954305,19 3,18.1045695 3,17 L3,8 C3,6.8954305 3.8954305,6 5,6 L19,6 C20.1045695,6 21,6.8954305 21,8 L21,12.0829584 Z M18.1444251,7.83964668 L12,11.1481833 L5.85557487,7.83964668 C5.4908718,7.6432681 5.03602525,7.77972206 4.83964668,8.14442513 C4.6432681,8.5091282 4.77972206,8.96397475 5.14442513,9.16035332 L11.6444251,12.6603533 C11.8664074,12.7798822 12.1335926,12.7798822 12.3555749,12.6603533 L18.8555749,9.16035332 C19.2202779,8.96397475 19.3567319,8.5091282 19.1603533,8.14442513 C18.9639747,7.77972206 18.5091282,7.6432681 18.1444251,7.83964668 Z"
+                                                          fill="#000000"/>
+													<circle fill="#000000" opacity="0.3" cx="19.5" cy="17.5" r="2.5"/>
+												</g>
+											</svg>
+                                            <!--end::Svg Icon-->
+										</span>
+									</span>
+									<span class="navi-text text-muted text-hover-primary">{{ user.email }}</span>
+								</span>
+                        </a>
+                        <a href="/signOut" class="btn btn-sm btn-light-primary font-weight-bolder py-2 px-5">Sign
+                            Out</a>
+                    </div>
+                </div>
+            </div>
+            <!--end::Header-->
+            <!--begin::Separator-->
+            <div class="separator separator-dashed mt-8 mb-5"></div>
+            <!--end::Separator-->
+            <!--begin::Nav-->
+            <div class="navi navi-spacer-x-0 p-0">
+                <!--begin::Item-->
+                <a href="#" class="navi-item">
+                    <div class="navi-link">
+                        <div class="symbol symbol-40 bg-light mr-3">
+                            <div class="symbol-label">
+									<span class="svg-icon svg-icon-md svg-icon-success">
+										<!--begin::Svg Icon | path:/media/svg/icons/General/Notification2.svg-->
+										<svg xmlns="http://www.w3.org/2000/svg"
+                                             xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px"
+                                             viewBox="0 0 24 24" version="1.1">
+											<g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+												<rect x="0" y="0" width="24" height="24"/>
+												<path d="M13.2070325,4 C13.0721672,4.47683179 13,4.97998812 13,5.5 C13,8.53756612 15.4624339,11 18.5,11 C19.0200119,11 19.5231682,10.9278328 20,10.7929675 L20,17 C20,18.6568542 18.6568542,20 17,20 L7,20 C5.34314575,20 4,18.6568542 4,17 L4,7 C4,5.34314575 5.34314575,4 7,4 L13.2070325,4 Z"
+                                                      fill="#000000"/>
+												<circle fill="#000000" opacity="0.3" cx="18.5" cy="5.5" r="2.5"/>
+											</g>
+										</svg>
+                                        <!--end::Svg Icon-->
+									</span>
+                            </div>
+                        </div>
+                        <div class="navi-text">
+                            <div class="font-weight-bold">My Profile</div>
+                            <div class="text-muted">Account settings and more</div>
+                        </div>
+                    </div>
+                </a>
+                <!--end:Item-->
+                <!--begin::Item-->
+                <a href="#" class="navi-item">
+                    <div class="navi-link">
+                        <div class="symbol symbol-40 bg-light mr-3">
+                            <div class="symbol-label">
+									<span class="svg-icon svg-icon-md svg-icon-primary">
+										<!--begin::Svg Icon | path:/media/svg/icons/Communication/Mail-opened.svg-->
+										<svg xmlns="http://www.w3.org/2000/svg"
+                                             xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px"
+                                             viewBox="0 0 24 24" version="1.1">
+											<g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+												<rect x="0" y="0" width="24" height="24"/>
+												<path d="M6,2 L18,2 C18.5522847,2 19,2.44771525 19,3 L19,12 C19,12.5522847 18.5522847,13 18,13 L6,13 C5.44771525,13 5,12.5522847 5,12 L5,3 C5,2.44771525 5.44771525,2 6,2 Z M7.5,5 C7.22385763,5 7,5.22385763 7,5.5 C7,5.77614237 7.22385763,6 7.5,6 L13.5,6 C13.7761424,6 14,5.77614237 14,5.5 C14,5.22385763 13.7761424,5 13.5,5 L7.5,5 Z M7.5,7 C7.22385763,7 7,7.22385763 7,7.5 C7,7.77614237 7.22385763,8 7.5,8 L10.5,8 C10.7761424,8 11,7.77614237 11,7.5 C11,7.22385763 10.7761424,7 10.5,7 L7.5,7 Z"
+                                                      fill="#000000" opacity="0.3"/>
+												<path d="M3.79274528,6.57253826 L12,12.5 L20.2072547,6.57253826 C20.4311176,6.4108595 20.7436609,6.46126971 20.9053396,6.68513259 C20.9668779,6.77033951 21,6.87277228 21,6.97787787 L21,17 C21,18.1045695 20.1045695,19 19,19 L5,19 C3.8954305,19 3,18.1045695 3,17 L3,6.97787787 C3,6.70173549 3.22385763,6.47787787 3.5,6.47787787 C3.60510559,6.47787787 3.70753836,6.51099993 3.79274528,6.57253826 Z"
+                                                      fill="#000000"/>
+											</g>
+										</svg>
+                                        <!--end::Svg Icon-->
+									</span>
+                            </div>
+                        </div>
+                        <div class="navi-text">
+                            <div class="font-weight-bold">My Tasks</div>
+                            <div class="text-muted">latest tasks</div>
+                        </div>
+                    </div>
+                </a>
+                <!--end:Item-->
+            </div>
+            <!--end::Nav-->
+            <!--begin::Separator-->
+            <div class="separator separator-dashed my-7"></div>
+            <!--end::Separator-->
+            <!--begin::Notifications-->
+            <div>
+                <!--begin:Heading-->
+                <h5 class="mb-5">Recent Notifications</h5>
+                <!--end:Heading-->
+                <!--begin::Item-->
+                <div class="d-flex align-items-center bg-light-warning rounded p-5 gutter-b">
+						<span class="svg-icon svg-icon-warning mr-5">
+							<span class="svg-icon svg-icon-lg">
+								<!--begin::Svg Icon | path:/media/svg/icons/Home/Library.svg-->
+								<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                                     width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+									<g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+										<rect x="0" y="0" width="24" height="24"/>
+										<path d="M5,3 L6,3 C6.55228475,3 7,3.44771525 7,4 L7,20 C7,20.5522847 6.55228475,21 6,21 L5,21 C4.44771525,21 4,20.5522847 4,20 L4,4 C4,3.44771525 4.44771525,3 5,3 Z M10,3 L11,3 C11.5522847,3 12,3.44771525 12,4 L12,20 C12,20.5522847 11.5522847,21 11,21 L10,21 C9.44771525,21 9,20.5522847 9,20 L9,4 C9,3.44771525 9.44771525,3 10,3 Z"
+                                              fill="#000000"/>
+										<rect fill="#000000" opacity="0.3"
+                                              transform="translate(17.825568, 11.945519) rotate(-19.000000) translate(-17.825568, -11.945519)"
+                                              x="16.3255682" y="2.94551858" width="3" height="18" rx="1"/>
+									</g>
+								</svg>
+                                <!--end::Svg Icon-->
+							</span>
+						</span>
+                    <div class="d-flex flex-column flex-grow-1 mr-2">
+                        <a href="#" class="font-weight-normal text-dark-75 text-hover-primary font-size-lg mb-1">Another
+                            purpose persuade</a>
+                        <span class="text-muted font-size-sm">Due in 2 Days</span>
+                    </div>
+                    <span class="font-weight-bolder text-warning py-1 font-size-lg">+28%</span>
+                </div>
+                <!--end::Item-->
+            </div>
+            <!--end::Notifications-->
+        </div>
+        <!--end::Content-->
+    </div>
+    <!-- end::User Panel-->
+
+{% endblock %}
+
+{% block js %}
+    <script src="{% static '/js/pages/my-script.js' %}"></script>
+    <script>
+        $('.aff').on("click", function () {
+            var $div = $(this);
+            swal.fire({
+                text: "Are You Sure ?",
+                icon: "error",
+                buttonsStyling: false,
+                confirmButtonText: "Yes !",
+                customClass: {
+                    confirmButton: "btn font-weight-bold btn-light-primary"
+                }
+            }).then(function (result) {
+                if (result.isConfirmed) {
+
+                    let url = $div.attr('id');
+
+                    $.ajax(`/boards/${url}`, {
+                        headers: {"X-CSRFToken": $(`{% csrf_token %}`).val()},
+                        type: "POST",
+                        success: (data) => {
+                            window.location.replace('/')
+                        },
+                        error: function (data) {
+                            $('[data-switch=true]').bootstrapSwitch();
+                            let content = {};
+                            content.message = data.responseJSON.error;
+                            $.notify(content, {
+                                type: 'danger',
+                                placement: {
+                                    from: 'top',
+                                    align: 'left'
+                                },
+                                offset: {
+                                    x: 30,
+                                    y: 30
+                                },
+                            });
+                        }
+                    });
+                }
+            });
+        });
+    </script>
+{% endblock %}

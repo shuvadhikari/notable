@@ -1,0 +1,52 @@
+# Created by https://www.gitignore.io/api/python,django,pycharm,vim,intellij,osx
+
+### Python ###
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# C extensions
+*.so
+
+# Distribution / packaging
+.Python
+env/
+build/
+
+# virtualenv
+.venv/
+venv/
+ENV/
+/localvocal-venv
+
+# migrations file
+**/migrations/00*
+
+# Code Editor Setting file
+.idea/
+
+# sqlite database
+db.sqlite3
+
+#Logging file
+logs/
+
+# .env remove
+.env
+
+# static
+static
+
+# media
+media
+
+dump.rdb
+celerybeat-schedule.db
+celerybeat-schedule.bak
+celerybeat-schedule.dir
+celerybeat.pid
+celerybeat-schedule.bak
+celerybeat-schedule.dat
+
+sitemap.xml
