@@ -15,10 +15,13 @@ Including another URLconf
 """
 from django.urls import path, include
 
+from task_manager.views import chat_gpt
+
 urlpatterns = [
     path('', include('users.urls')),
     path('boards/', include('task_manager.urls')),
-    path('report/', include('reports.urls'))
+    path('report/', include('reports.urls')),
+    path('chat-gpt/', chat_gpt, name="chat-gpt"),
 ]
 
 # handler404 = 'djangoProject.errorViews.handler404'

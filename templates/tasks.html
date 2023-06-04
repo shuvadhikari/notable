@@ -150,12 +150,14 @@
                     <div class="card-body">
                         <div class="form-group" style="display: inline-flex;">
                             <input id="doc_helper" style="width: 900px;" name="search" type="text" class="form-control form-control-lg" placeholder="Typing...">
-                            <button type="button" class="btn font-weight-bold btn-light-primary mr-5 ml-2"
-                                    data-toggle="modal"
-                                    data-target="#exampleModal">
+                            <button disabled type="button" class="btn font-weight-bold btn-light-primary mr-5 ml-2" id="generate">
                                 Generate
                             </button>
                         </div>
+                        <textarea name="answer" class="form-control"
+                          id="answer"
+                          rows="3"
+                          placeholder="Say More ..."></textarea>
                     </div>
                 </div>
 
@@ -635,7 +637,22 @@
         jQuery(document).ready(function () {
             KTKanbanBoardDemo.init();
             KTCalendarBasic.init();
-        });
 
+            $('#doc_helper').on('keyup change', function() {
+                if($(this).val().length > 0){
+                    $('#generate').attr("disabled", false);
+                } else {
+                    $('#generate').attr("disabled", true);
+                }
+            });
+
+            $("#generate").click(function(){
+
+              $.ajax({url: `/chat-gpt?q=${$('#doc_helper').val()}`, success: function(result){
+                $("#answer").append(result.content);
+                $('#doc_helper').val('');
+              }});
+            });
+        });
     </script>
 {% endblock %}

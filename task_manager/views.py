@@ -11,6 +11,9 @@ from django.views import View
 from reports.models import ProjectInfo
 from .models import Task, Project, Team
 
+from bardapi import Bard
+import os
+
 
 class Projects(View):
     def get(self, request):
@@ -191,3 +194,19 @@ class ManegeTasks(View):
                 response = JsonResponse({"error": "You Do Not Have Permission"})
                 response.status_code = 403
                 return response
+
+
+def chat_gpt(request):
+    if request.GET.get('q'):
+        os.environ['_BARD_API_KEY'] = "XAjsS_NzgSqMNgYKYSniT1_gle-QuAGXPnnrZhpHZ9idu90gekA8537HHfHHYrl6wEnHwQ."
+        return JsonResponse({
+            "role": "assistant",
+            "content": Bard().get_answer(
+                request.GET.get('q')
+            )['content']
+        })
+    else:
+        return JsonResponse({
+            "role": "assistant",
+            "content": "invalid data"
+        })
