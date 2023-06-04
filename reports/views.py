@@ -11,7 +11,7 @@ class Report(View):
             return redirect('signIn')
 
         user = request.user
-        projects = Project.objects.all(Q(owner=request.user) | Q(members=request.user))
+        projects = Project.objects.filter(Q(owner=request.user) | Q(members=request.user)).all()
         p_info_list = []
         u_info = UserInfo(user)
         user_in_projects = []
