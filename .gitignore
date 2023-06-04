@@ -39,7 +39,7 @@ logs/
 #static
 
 # media
-media
+#media
 
 dump.rdb
 celerybeat-schedule.db
