@@ -79,8 +79,8 @@ var KTFormWidgetsValidation = function () {
                             },
                             stringLength: {
                                 min: 1,
-                                max: 200,
-                                message: 'Please enter a menu within text length range 1 and 200'
+                                max: 10000,
+                                message: 'Please enter a menu within text length range 1 and 10000'
                             }
                         }
                     },
@@ -91,8 +91,8 @@ var KTFormWidgetsValidation = function () {
                             },
                             stringLength: {
                                 min: 1,
-                                max: 1000,
-                                message: 'Please enter a menu within text length range 1 and 1000'
+                                max: 10000,
+                                message: 'Please enter a menu within text length range 1 and 10000'
                             }
                         }
                     },

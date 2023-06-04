@@ -5,7 +5,7 @@ import json
 
 class Project(models.Model):
     name = models.CharField(max_length=50)
-    description = models.CharField(max_length=200)
+    description = models.TextField()
     details = models.TextField()
     owner = models.ForeignKey(User, on_delete=models.CASCADE, related_name='project_owner')
     # members = models.CharField(max_length=500)
@@ -19,7 +19,7 @@ class Project(models.Model):
 class Team(models.Model):
     owner = models.ForeignKey(User, on_delete=models.CASCADE, related_name='team_owner')
     name = models.CharField(max_length=50)
-    description = models.CharField(max_length=200)
+    description = models.TextField()
     members = models.ManyToManyField(User)
 
     class Meta:
@@ -28,7 +28,7 @@ class Team(models.Model):
 
 class Task(models.Model):
     name = models.CharField(max_length=50)
-    description = models.CharField(max_length=200)
+    description = models.TextField()
     assigned_to = models.ManyToManyField(User)
     status_choices = (
         ('T', 'To Do'),
