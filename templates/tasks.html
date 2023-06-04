@@ -75,20 +75,24 @@
                                                 </button>
                                             </div>
                                             <div class="modal-body">
-                                                <form id="add_board_from" method="post">{% csrf_token %}
+                                                <form id="add_board_from" method="post">
+                                                    {% csrf_token %}
                                                     <div class="form-group">
                                                         <label>Name
                                                             <span class="text-danger">*</span></label>
-                                                        <input id="iname" name="name" type="text"
+                                                        <div>
+                                                            <input id="iname" name="name" type="text"
                                                                class="form-control form-control-lg"
                                                                placeholder="Task">
+                                                            <p style="text-align: right; margin-top: 2px;" id="taskGenerate">Generate</p>
+                                                        </div>
                                                     </div>
                                                     <div class="form-group">
                                                         <label>Description
                                                             <span class="text-danger">*</span></label>
-                                                        <input id="idesc" name="desc" type="text"
+                                                        <textarea id="idesc" name="desc" type="text"
                                                                class="form-control form-control-lg"
-                                                               placeholder="Details ...">
+                                                                  placeholder="Details ..."></textarea>
                                                     </div>
                                                     <div class="form-group">
                                                         <label>Select DeadLine
@@ -647,11 +651,28 @@
             });
 
             $("#generate").click(function(){
-
               $.ajax({url: `/chat-gpt?q=${$('#doc_helper').val()}`, success: function(result){
                 $("#answer").append(result.content);
                 $('#doc_helper').val('');
               }});
+            });
+
+            $('#iname').on('keyup change', function() {
+                if($(this).val().length > 0){
+                    $('#taskGenerate').attr("disabled", false);
+                    $('#taskGenerate').css("cursor", "pointer");
+                } else {
+                    $('#taskGenerate').attr("disabled", true);
+                    $('#taskGenerate').css("cursor", "auto");
+                }
+            });
+
+            $("#taskGenerate").click(function(){
+                if($('#iname').val()){
+                     $.ajax({url: `/chat-gpt?q=${$('#iname').val()}`, success: function(result){
+                        $("#idesc").val(result.content);
+                     }});
+                }
             });
         });
     </script>
