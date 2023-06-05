@@ -18,14 +18,14 @@
 ### Login
 * You can sign in or sign up 
 
-![login](preview/login.png)
+![login](preview/login2.png)
 
 ### Projects or Teams
 * Create your teams or projects and add its members from registered users.
 * This project is available for members.
 * The creator user will be the admin of project or team.
 
-![projects](preview/projects.png)
+![projects](preview/projects2.png)
 
 ### Tasks
 * Admin user can add a task and assign it to members and himself. 
