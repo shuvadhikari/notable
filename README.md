@@ -1,8 +1,9 @@
 # Notable
 ### Manage your teams, projects and tasks
+### Creating A Virtual Workspace For Personal Or Business Upkeep And Organization Of Data Using AI
 
 ### How To Run:
-#### This project use SQLite database, so you can easily run it on your local machine. do this steps:
+#### This project uses SQLite database, so you can easily run it on your local machine. do this steps:
 
   1- `pip install -r requirements.txt`
 
@@ -34,6 +35,13 @@
 
 ![tasks](preview/tasks.png)
 
+### Task Helper
+* Members can call the BardAPI using the prompt window.
+* The api will generate a response taking 7 sec(approx).
+* The window can be resized and the results copied.
+
+![task helper](preview/helper.png)
+
 ### Calendar
 * Deadline of tasks will be shown in the calendar.
 * Only Admin can drag and drop tasks in the calendar to change its deadline.
@@ -44,4 +52,4 @@
 * User can see status or all his projects and his status in all projects.
 
 ![report](preview/report.png)
-# notable
+# Notable
